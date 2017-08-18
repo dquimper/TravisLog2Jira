@@ -71,7 +71,8 @@ class Jira
 
   def jira_issues_cache
     Rails.cache.fetch(jira_issues_cache_key, expires_in: 5.minutes) do
-      @jira_client.Issue.jql("'Epic Link' = #{epic}")
+      search_jql = ENV["JIRA_SEARCH_JQL"] || raise("ENV['JIRA_SEARCH_JQL'] is undefined!")
+      @jira_client.Issue.jql(search_jql)
     end
   end
 

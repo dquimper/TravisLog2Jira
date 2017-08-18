@@ -1,0 +1,16 @@
+<%= form_with(model: @issue, local: true) do |form| %>
+    <div class="field form-group">
+      <%= form.label :title %>
+      <%= form.text_field :title, class: "form-control" %>
+    </div>
+
+    <div class="field form-group">
+      <%= form.label :trace %>
+      <%= form.text_area :trace,  rows: 15, class: "form-control" %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit "Save", class: "btn btn-default" %>
+      <%= link_to 'Back', root_path, class: "btn btn-info" %>
+    </div>
+<% end %>

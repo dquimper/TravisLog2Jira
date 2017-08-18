@@ -1,0 +1,90 @@
+require 'json'
+
+class Jira
+  def initialize(username, password)
+    options = {
+      :username     => username,
+      :password     => password,
+      :site         => base_url,
+      :context_path => '',
+      :auth_type    => :basic
+    }
+    @jira_client = JIRA::Client.new(options)
+  end
+
+  def myself
+    @jira_client.User.myself
+  end
+
+  def connected?
+    begin
+      myself
+    rescue JIRA::HTTPError
+      return false
+    end
+    true
+  end
+
+  def issues
+    @_issues ||= jira_issues_cache
+  end
+
+  def create_issue(issue)
+    new_issue = @jira_client.Issue.build
+    saved = new_issue.save(
+      'fields' => issue_fields_defaults.merge(
+        {
+          'summary' => issue.title,
+          'description' => issue.description
+        }
+      )
+    )
+    if saved
+      clear_jira_issues_cache
+    else
+      Rails.logger.info("create_issue(#{issue.id}")
+      Rails.logger.info(new_issue.inspect)
+      Rails.logger.info(new_issue.to_yaml)
+    end
+    new_issue
+  end
+
+  def comment_on_issue(issue_key, issue)
+    jira_issue = issues.detect { |i| i.key == issue_key}
+    comment = jira_issue.comments.build
+    saved = comment.save('body' => issue.trace)
+    if not saved
+      Rails.logger.info("comment_on_issue(#{issue_key}, #{issue.id}")
+      Rails.logger.info(comment.inspect)
+      Rails.logger.info(comment.to_yaml)
+    end
+  end
+
+  def issue_url(jira_issue)
+    "#{base_url}/browse/#{jira_issue[:key]}"
+  end
+
+  protected
+  def jira_issues_cache_key
+    "jira_issues"
+  end
+
+  def jira_issues_cache
+    Rails.cache.fetch(jira_issues_cache_key, expires_in: 5.minutes) do
+      @jira_client.Issue.jql("'Epic Link' = #{epic}")
+    end
+  end
+
+  def clear_jira_issues_cache
+    Rails.cache.delete(jira_issues_cache_key)
+  end
+
+  private
+  def base_url
+    ENV['JIRA_BASE_URL'] || raise("ENV['JIRA_BASE_URL'] is undefined!")
+  end
+
+  def issue_fields_defaults
+    JSON.parse(ENV['JIRA_ISSUE_FIELDS_DEFAULT'] || '{}')
+  end
+end

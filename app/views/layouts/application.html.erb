@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>TravisLog2Jira</title>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      &nbsp;
+    </div>
+    <div class="row">
+      <div class="col-md-10 lead">
+        <%= yield :header %>
+      </div>
+      <div class="col-md-2">
+        <% if jira_username.present? %>
+            <%= link_to "Logout", jira_sessions_path, method: :delete, class: "btn btn-warning pull-right" %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="row">
+      <% if flash[:notice] %>
+          <div id="flash_notice" class="alert alert-success alert-dismissable fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <%= flash[:notice] %>
+          </div>
+      <% end %>
+      <% if flash[:alert] %>
+          <div id="flash_alert" class="alert alert-danger alert-dismissable fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <%= flash[:alert] %>
+          </div>
+      <% end %>
+    </div>
+
+    <%= yield %>
+  </div>
+</body>
+</html>

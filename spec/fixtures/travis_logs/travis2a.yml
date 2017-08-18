@@ -1,0 +1,37 @@
+---
+:title: test/integration/reports/report_test.rb:0022
+:trace: |-
+  Started at Aug 10, 2017 at 12:25 AM w/ seed 22196.
+  Ruby 1.9.3
+  Rails 3.1.12
+
+  FAIL (0:21:34.578) test_0001_new report
+  Expected to include "bro_report".
+  @ vendor/bundle/ruby/1.9.1/gems/minitest-4.7.5/lib/minitest/unit.rb:195:in `assert'
+  vendor/bundle/ruby/1.9.1/gems/test-unit-minitest-0.9.1/lib/test/unit/assertions.rb:36:in `assert'
+  vendor/bundle/ruby/1.9.1/gems/minitest-capybara-0.5.0/lib/capybara/assertions.rb:9:in `assert_text'
+  (eval):6:in `must_have_content'
+  test/integration/reports/report_test.rb:22:in `block (4 levels) in <top (required)>'
+  vendor/bundle/ruby/1.9.1/gems/minitest-4.7.5/lib/minitest/unit.rb:1258:in `run'
+  vendor/bundle/ruby/1.9.1/gems/test-unit-minitest-0.9.1/lib/test/unit/testcase.rb:17:in `run'
+  vendor/bundle/ruby/1.9.1/gems/activesupport-3.1.12/lib/active_support/testing/setup_and_teardown.rb:36:in `block in run'
+  vendor/bundle/ruby/1.9.1/gems/activesupport-3.1.12/lib/active_support/callbacks.rb:408:in `_run_setup_callbacks'
+  vendor/bundle/ruby/1.9.1/gems/activesupport-3.1.12/lib/active_support/callbacks.rb:81:in `run_callbacks'
+  vendor/bundle/ruby/1.9.1/gems/activesupport-3.1.12/lib/active_support/testing/setup_and_teardown.rb:35:in `run'
+  vendor/bundle/ruby/1.9.1/gems/turn-0.9.7/lib/turn/runners/minirunner.rb:91:in `block in _run_suite'
+  vendor/bundle/ruby/1.9.1/gems/turn-0.9.7/lib/turn/runners/minirunner.rb:84:in `map'
+  vendor/bundle/ruby/1.9.1/gems/turn-0.9.7/lib/turn/runners/minirunner.rb:84:in `_run_suite'
+  vendor/bundle/ruby/1.9.1/gems/turn-0.9.7/lib/turn/runners/minirunner.rb:61:in `block in _run_suites'
+  vendor/bundle/ruby/1.9.1/gems/turn-0.9.7/lib/turn/runners/minirunner.rb:61:in `map'
+  vendor/bundle/ruby/1.9.1/gems/turn-0.9.7/lib/turn/runners/minirunner.rb:61:in `_run_suites'
+  vendor/bundle/ruby/1.9.1/gems/minitest-4.7.5/lib/minitest/unit.rb:877:in `_run_anything'
+  vendor/bundle/ruby/1.9.1/gems/minitest-4.7.5/lib/minitest/unit.rb:1085:in `run_tests'
+  vendor/bundle/ruby/1.9.1/gems/minitest-4.7.5/lib/minitest/unit.rb:1072:in `block in _run'
+  vendor/bundle/ruby/1.9.1/gems/minitest-4.7.5/lib/minitest/unit.rb:1071:in `each'
+  vendor/bundle/ruby/1.9.1/gems/minitest-4.7.5/lib/minitest/unit.rb:1071:in `_run'
+  vendor/bundle/ruby/1.9.1/gems/minitest-4.7.5/lib/minitest/unit.rb:1059:in `run'
+  vendor/bundle/ruby/1.9.1/gems/test-unit-minitest-0.9.1/lib/test/unit.rb:27:in `run'
+  vendor/bundle/ruby/1.9.1/gems/test-unit-minitest-0.9.1/lib/test/unit.rb:780:in `run'
+  vendor/bundle/ruby/1.9.1/gems/test-unit-minitest-0.9.1/lib/test/unit.rb:372:in `block (2 levels) in autorun'
+  vendor/bundle/ruby/1.9.1/gems/test-unit-minitest-0.9.1/lib/test/unit.rb:33:in `run_once'
+  vendor/bundle/ruby/1.9.1/gems/test-unit-minitest-0.9.1/lib/test/unit.rb:371:in `block in autorun'

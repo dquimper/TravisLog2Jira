@@ -1,0 +1,7 @@
+<% content_for :header do %>
+    New Jira Session
+<% end %>
+
+<div class="well">Input your JIRA credentials. They will not be recorded.</div>
+
+<%= render 'form', jira_session: @jira_session %>

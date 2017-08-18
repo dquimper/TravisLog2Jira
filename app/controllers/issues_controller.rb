@@ -8,12 +8,6 @@ class IssuesController < ApplicationController
 
   def index
     @issues = Issue.all.order(created_at: :desc)
-
-    @issues.each do |i|
-      jira_issues.each do |j|
-        Vladlev.distance(i.title, j[:summary])
-      end
-    end
   end
 
   def new
@@ -97,9 +91,9 @@ class IssuesController < ApplicationController
     distances = {}
     jira_issues.each do |i|
       distances[i] = [
-        Vladlev.distance(issue.title, i[:summary], threshold),
-        Vladlev.distance("Build failure: #{issue.title}", i[:summary], threshold)
-      ].min
+        Levenshtein.distance(issue.title, i[:summary], threshold),
+        Levenshtein.distance("Build failure: #{issue.title}", i[:summary], threshold)
+      ].compact.min || 999
     end
     distances.sort_by(&:last).select { |i,d| d < threshold }
   end

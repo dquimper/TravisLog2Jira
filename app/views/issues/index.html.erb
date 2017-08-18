@@ -58,6 +58,8 @@
 </div>
 
 
-<pre>
-  <%= @jira.issues[2].to_yaml %>
-</pre>
+<% if params[:issue_debug].present? %>
+    <pre>
+      <%= @jira.issues[params[:issue_debug].to_i].to_yaml %>
+    </pre>
+<% end %>

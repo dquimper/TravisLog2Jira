@@ -3,8 +3,6 @@ class JiraSessionsController < ApplicationController
 
   # GET /jira_sessions/new
   def new
-    flash[:notice] = "Notice"
-    flash[:alert] = "Alert"
   end
 
   # POST /jira_sessions

@@ -91,9 +91,9 @@ class IssuesController < ApplicationController
     distances = {}
     jira_issues.each do |i|
       distances[i] = [
-        Levenshtein.distance(issue.title, i[:summary], threshold),
-        Levenshtein.distance("Build failure: #{issue.title}", i[:summary], threshold)
-      ].compact.min || 999
+        Vladlev.distance(issue.title, i[:summary], threshold),
+        Vladlev.distance("Build failure: #{issue.title}", i[:summary], threshold)
+      ].min
     end
     distances.sort_by(&:last).select { |i,d| d < threshold }
   end

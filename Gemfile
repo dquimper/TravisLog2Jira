@@ -40,8 +40,7 @@ gem 'jira-ruby', :require => 'jira-ruby'
 gem 'foreman'
 
 gem 'ffi'
-# gem 'vladlev', github: "dquimper/vladlev"
-gem 'levenshtein'
+gem 'vladlev', github: "dquimper/vladlev"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

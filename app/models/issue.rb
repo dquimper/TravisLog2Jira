@@ -25,7 +25,7 @@ class Issue < ApplicationRecord
 
   protected
   def init_vars
-    @test_regexp = Regexp.new("(test/.*_test.rb):(\\d+):")
+    @test_regexp = Regexp.new("^(test/.*.rb):(\\d+):")
     @lines = []
   end
 

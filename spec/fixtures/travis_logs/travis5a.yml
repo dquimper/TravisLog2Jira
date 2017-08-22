@@ -1,5 +1,5 @@
 ---
-:title: test/integration/pdf_manager_test.rb:0148
+:title: test/support/pdf_manager_template_helpers.rb:0036
 :trace: |-
   Started at Aug 15, 2017 at 8:22 PM w/ seed 64529.
   Ruby 1.9.3

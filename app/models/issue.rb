@@ -7,14 +7,15 @@ class Issue < ApplicationRecord
   end
 
   def reparse!
+    self.title = nil
     parse_lines
     save!
   end
 
-  def extra_info=(ver)
-    @lines << ver[:start_time].presence
-    @lines << ver[:ruby].presence
-    @lines << ver[:rails].presence
+  def extra_info=(info)
+    @lines << info[:start_time].presence
+    @lines << info[:ruby].presence
+    @lines << info[:rails].presence
     @lines.compact!
     @lines << ""
   end

@@ -1,6 +1,7 @@
 GIT
-  remote: https://github.com/dquimper/vladlev.git
-  revision: 966a43676fa2f8b438231f7cb3a15738ed7188e1
+  remote: https://github.com/mxenabled/vladlev.git
+  revision: aa68e0f09d036cc6ccf96573469dc09bc74e01b9
+  branch: gt/few_things
   specs:
     vladlev (1.0.3)
       ffi

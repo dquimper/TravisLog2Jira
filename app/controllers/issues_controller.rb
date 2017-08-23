@@ -95,7 +95,7 @@ class IssuesController < ApplicationController
         Vladlev.distance("Build failure: #{issue.title}", i[:summary], threshold)
       ].min
     end
-    distances.sort_by(&:last).select { |i,d| d < threshold }
+    distances.select { |i,d| d < threshold }.sort_by(&:last).reverse
   end
 
   def issue_params

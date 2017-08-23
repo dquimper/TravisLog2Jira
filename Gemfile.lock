@@ -1,7 +1,6 @@
 GIT
   remote: https://github.com/mxenabled/vladlev.git
-  revision: aa68e0f09d036cc6ccf96573469dc09bc74e01b9
-  branch: gt/few_things
+  revision: fe67cc2a5e18830cc2961787e67f48be0d2c981c
   specs:
     vladlev (1.0.3)
       ffi

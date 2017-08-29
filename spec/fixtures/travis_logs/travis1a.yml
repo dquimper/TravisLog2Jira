@@ -1,19 +1,33 @@
 ---
-:title: test/integration/applicant_details/designations/designations_test.rb:0123
+:title: test/models/view_report_file_test.rb:0049
 :trace: |-
-  Started at Aug 10, 2017 at 7:08 PM w/ seed 62933.
+  Started at Aug 29, 2017 at 2:31 PM w/ seed 52786.
   Ruby 1.9.3
   Rails 3.1.12
 
-  FAIL (0:10:51.236) test_0005_user changes local status and sends an email for status: received
-  <1> expected but was
-  <0>.
-  @ vendor/bundle/ruby/1.9.1/gems/minitest-4.7.5/lib/minitest/unit.rb:195:in `assert'
-  vendor/bundle/ruby/1.9.1/gems/test-unit-minitest-0.9.1/lib/test/unit/assertions.rb:36:in `assert'
-  vendor/bundle/ruby/1.9.1/gems/test-unit-minitest-0.9.1/lib/test/unit/assertions.rb:250:in `assert_equal'
-  (eval):8:in `must_equal'
-  test/integration/applicant_details/designations/designations_test.rb:123:in `block (8 levels) in <top (required)>'
-  vendor/bundle/ruby/1.9.1/gems/minitest-4.7.5/lib/minitest/unit.rb:1258:in `run'
+  ERROR (0:16:03.502) test_0001_updates report attributes
+  No such file or directory - /tmp/view_report_file20170829-10578-1t49p1b.xls
+  @ /home/travis/.rvm/rubies/ruby-1.9.3-p551/lib/ruby/1.9.1/fileutils.rb:1515:in `stat'
+  /home/travis/.rvm/rubies/ruby-1.9.3-p551/lib/ruby/1.9.1/fileutils.rb:1515:in `block in fu_each_src_dest'
+  /home/travis/.rvm/rubies/ruby-1.9.3-p551/lib/ruby/1.9.1/fileutils.rb:1531:in `fu_each_src_dest0'
+  /home/travis/.rvm/rubies/ruby-1.9.3-p551/lib/ruby/1.9.1/fileutils.rb:1513:in `fu_each_src_dest'
+  /home/travis/.rvm/rubies/ruby-1.9.3-p551/lib/ruby/1.9.1/fileutils.rb:395:in `cp'
+  vendor/bundle/ruby/1.9.1/gems/paperclip-4.2.2/lib/paperclip/io_adapters/abstract_adapter.rb:42:in `copy_to_tempfile'
+  vendor/bundle/ruby/1.9.1/gems/paperclip-4.2.2/lib/paperclip/io_adapters/file_adapter.rb:13:in `cache_current_values'
+  vendor/bundle/ruby/1.9.1/gems/paperclip-4.2.2/lib/paperclip/io_adapters/file_adapter.rb:5:in `initialize'
+  vendor/bundle/ruby/1.9.1/gems/paperclip-4.2.2/lib/paperclip/io_adapters/registry.rb:29:in `new'
+  vendor/bundle/ruby/1.9.1/gems/paperclip-4.2.2/lib/paperclip/io_adapters/registry.rb:29:in `for'
+  vendor/bundle/ruby/1.9.1/gems/paperclip-4.2.2/lib/paperclip/attachment.rb:97:in `assign'
+  vendor/bundle/ruby/1.9.1/gems/paperclip-4.2.2/lib/paperclip/has_attached_file.rb:66:in `block in define_setter'
+  app/models/view_report_file.rb:51:in `create_or_refresh'
+  test/models/view_report_file_test.rb:49:in `block (4 levels) in <top (required)>'
+  vendor/bundle/ruby/1.9.1/gems/vcr-2.8.0/lib/vcr/util/variable_args_block_caller.rb:9:in `call'
+  vendor/bundle/ruby/1.9.1/gems/vcr-2.8.0/lib/vcr/util/variable_args_block_caller.rb:9:in `call_block'
+  vendor/bundle/ruby/1.9.1/gems/vcr-2.8.0/lib/vcr.rb:182:in `use_cassette'
+  test/models/view_report_file_test.rb:48:in `block (3 levels) in <top (required)>'
+  vendor/bundle/ruby/1.9.1/gems/minitest-4.7.5/lib/minitest/spec.rb:165:in `instance_eval'
+  vendor/bundle/ruby/1.9.1/gems/minitest-4.7.5/lib/minitest/spec.rb:165:in `block in before'
+  vendor/bundle/ruby/1.9.1/gems/minitest-4.7.5/lib/minitest/unit.rb:1256:in `run'
   vendor/bundle/ruby/1.9.1/gems/test-unit-minitest-0.9.1/lib/test/unit/testcase.rb:17:in `run'
   vendor/bundle/ruby/1.9.1/gems/activesupport-3.1.12/lib/active_support/testing/setup_and_teardown.rb:36:in `block in run'
   vendor/bundle/ruby/1.9.1/gems/activesupport-3.1.12/lib/active_support/callbacks.rb:408:in `_run_setup_callbacks'

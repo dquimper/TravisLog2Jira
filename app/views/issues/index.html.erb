@@ -13,48 +13,54 @@
 </div>
 
 <div class="row">
-<% @issues.each do |issue| %>
-
-    <div id="issue_<%= issue.id %>" class="issue panel panel-default">
-      <div class="panel-heading">
-        <%= link_to "Edit", edit_issue_path(issue), class: "pull-right" %>
-        <strong><%= issue.title %></strong>
+  <% if @issues.empty? %>
+      <div class="alert alert-info">
+        No issue found!
       </div>
-      <div class="panel-body">
-        <pre class="pre-scrollable"><%= issue.description %></pre>
-      </div>
-      <div class="panel-body">
-        <%= form_with(model: issue, url: execute_issue_path(issue)) do |form| %>
-            <div class="field">
+  <% else %>
+      <% @issues.each do |issue| %>
 
-              <% matching_jira_issues(issue).each do |jira_issue, d| %>
-                  <%= label_tag do %>
-                      <%= form.radio_button :action, "#{jira_issue[:key]}" %>
-                      Update <%= "'#{jira_issue[:key]}: #{jira_issue[:summary]}' [#{[jira_issue[:status], jira_issue[:assignee]].compact.join(" / ")}]" %>
-                  <% end %>
-                  <%= link_to "Open #{jira_issue[:key]}", @jira.issue_url(jira_issue), target: :blank %>
-                  <%= "(%.1f%% match)" % (100*(jira_issue[:summary].size.to_f-d)/jira_issue[:summary].size.to_f) %>
-                  <br>
+          <div id="issue_<%= issue.id %>" class="issue panel panel-default">
+            <div class="panel-heading">
+              <%= link_to "Edit", edit_issue_path(issue), class: "pull-right" %>
+              <strong><%= issue.title %></strong>
+            </div>
+            <div class="panel-body">
+              <pre class="pre-scrollable"><%= issue.description %></pre>
+            </div>
+            <div class="panel-body">
+              <%= form_with(model: issue, url: execute_issue_path(issue)) do |form| %>
+                  <div class="field">
+
+                    <% matching_jira_issues(issue).each do |jira_issue, d| %>
+                        <%= label_tag do %>
+                            <%= form.radio_button :action, "#{jira_issue[:key]}" %>
+                            Update <%= "'#{jira_issue[:key]}: #{jira_issue[:summary]}' [#{[jira_issue[:status], jira_issue[:assignee]].compact.join(" / ")}]" %>
+                        <% end %>
+                        <%= link_to "Open #{jira_issue[:key]}", @jira.issue_url(jira_issue), target: :blank %>
+                        <%= "(%.1f%% match)" % (100*(jira_issue[:summary].size.to_f-d)/jira_issue[:summary].size.to_f) %>
+                        <br>
+                    <% end %>
+
+                    <%= label_tag do %>
+                        <%= form.radio_button :action, :new %>
+                        Create a new JIRA.
+                    <% end %><br>
+
+                    <%= label_tag do %>
+                        <%= form.radio_button :action, :destroy, checked: true %>
+                        This is not a failed test. Remove it from this list.
+                    <% end %><br>
+                  </div>
+
+                  <div class="actions">
+                    <%= form.submit "Execute", data: { "disable-with": "Executing..." } %>
+                  </div>
               <% end %>
-
-              <%= label_tag do %>
-                  <%= form.radio_button :action, :new %>
-                  Create a new JIRA.
-              <% end %><br>
-
-              <%= label_tag do %>
-                  <%= form.radio_button :action, :destroy, checked: true %>
-                  This is not a failed test. Remove it from this list.
-              <% end %><br>
             </div>
-
-            <div class="actions">
-              <%= form.submit "Execute", data: { "disable-with": "Executing..." } %>
-            </div>
-        <% end %>
-      </div>
-    </div>
-<% end %>
+          </div>
+      <% end %>
+  <% end %>
 </div>
 
 

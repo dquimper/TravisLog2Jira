@@ -10,7 +10,13 @@ class JiraSessionsController < ApplicationController
   def create
     session[:jira_username] = params[:jira_session][:username]
     session[:jira_password] = params[:jira_session][:password]
-    redirect_to root_path, notice: "Logged in!"
+    if session[:build_number].present?
+      build_number = session[:build_number]
+      session[:build_id] = nil
+      redirect_to builds_path(id: build_number)
+    else
+      redirect_to root_path, notice: "Logged in!"
+    end
   end
 
   # DELETE /jira_sessions/1

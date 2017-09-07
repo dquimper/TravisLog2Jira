@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170810172551) do
+ActiveRecord::Schema.define(version: 20170905133649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 20170810172551) do
     t.text "trace"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "jira_username"
+    t.index ["jira_username"], name: "index_issues_on_jira_username"
   end
 
 end

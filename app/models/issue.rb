@@ -2,6 +2,12 @@ class Issue < ApplicationRecord
   after_initialize :init_vars
   before_save :parse_lines
 
+  scope :for, -> (jira_username) {
+    where(jira_username: jira_username)
+  }
+
+  validates_presence_of :jira_username
+
   def <<(line)
     @lines << line.gsub(/\e\[[0-9]+m/,"").strip
   end

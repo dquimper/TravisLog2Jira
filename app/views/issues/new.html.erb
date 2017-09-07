@@ -2,6 +2,11 @@
 
 <%= form_with(scope: :travis_log, url: issues_path, method: :post, local: true) do |form| %>
     <div class="field form-group">
+      <%= form.label :url, "Build number" %>
+      <%= form.text_field :build_number, class: "form-control" %>
+    </div>
+
+    <div class="field form-group">
       <%= form.label :url, "URL where the Travis is located." %>
       <%= form.text_field :url, class: "form-control" %>
     </div>

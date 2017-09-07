@@ -1,7 +1,8 @@
 class TravisLogParser
 
-  def initialize(log_text)
+  def initialize(log_text, jira_username)
     @log_text = log_text
+    @jira_username = jira_username
     @ruby_regexp = Regexp.new("Running (Ruby .*)")
     @rails_regexp = Regexp.new("Running (Rails .*)")
     @time_regexp = Regexp.new("^(Started at .+)")
@@ -45,7 +46,7 @@ class TravisLogParser
       end
 
       if m = @start_regexp.match(line)
-        issue = Issue.new
+        issue = Issue.new(jira_username: @jira_username)
         issue.extra_info = extra_info
         next
       end

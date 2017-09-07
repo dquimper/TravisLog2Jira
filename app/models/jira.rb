@@ -49,8 +49,25 @@ class Jira
     new_issue
   end
 
-  def comment_on_issue(issue_key, issue)
+  def reopen_and_comment_on_issue(issue_key, issue)
     jira_issue = issues.detect { |i| i.key == issue_key}
+    if jira_issue.status.name == "Resolved"
+      reopen_issue(jira_issue)
+    end
+    comment_on_issue(jira_issue, issue)
+  end
+
+  def reopen_issue(jira_issue)
+    issue_transition = jira_issue.transitions.build
+    saved = issue_transition.save!('transition' => { "id" => reopen_transition_id })
+    if not saved
+      Rails.logger.info("reopen_issue(#{jira_issue.key})")
+      Rails.logger.info(jira_issue.inspect)
+      Rails.logger.info(jira_issue.to_yaml)
+    end
+  end
+
+  def comment_on_issue(jira_issue, issue)
     comment = jira_issue.comments.build
     saved = comment.save('body' => issue.trace)
     if not saved
@@ -87,5 +104,9 @@ class Jira
 
   def issue_fields_defaults
     JSON.parse(ENV['JIRA_ISSUE_FIELDS_DEFAULT'] || '{}')
+  end
+
+  def reopen_transition_id
+    ENV['JIRA_REOPEN_TRANSITION_ID'] || raise("ENV['JIRA_REOPEN_TRANSITION_ID'] is undefined!")
   end
 end

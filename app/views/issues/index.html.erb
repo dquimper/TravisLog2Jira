@@ -1,10 +1,10 @@
 <% content_for :header do %>
-    Failed tests
+    Recurring Failing tests
 <% end %>
 
 <div class="row">
   <div class="col-md-12">
-    <%= link_to "New Travis log", new_issue_path, class: "btn btn-default pull-right" %>
+    <%= link_to "Upload Travis log", new_issue_path, class: "btn btn-default pull-right" %>
   </div>
 </div>
 
@@ -32,14 +32,8 @@
               <%= form_with(model: issue, url: execute_issue_path(issue)) do |form| %>
                   <div class="field">
 
-                    <% matching_jira_issues(issue).each do |jira_issue, d| %>
-                        <%= label_tag do %>
-                            <%= form.radio_button :action, "#{jira_issue[:key]}" %>
-                            Update <%= "'#{jira_issue[:key]}: #{jira_issue[:summary]}' [#{[jira_issue[:status], jira_issue[:assignee]].compact.join(" / ")}]" %>
-                        <% end %>
-                        <%= link_to "Open #{jira_issue[:key]}", @jira.issue_url(jira_issue), target: :blank %>
-                        <%= "(%.1f%% match)" % (100*(jira_issue[:summary].size.to_f-d)/jira_issue[:summary].size.to_f) %>
-                        <br>
+                    <% matching_jira_issues(issue).each do |jira_issue, levenshtein_distance| %>
+                        <%= issue_radio_button(form, jira_issue, levenshtein_distance) %><br>
                     <% end %>
 
                     <%= label_tag do %>
@@ -65,6 +59,14 @@
 
 
 <% if params[:issue_debug].present? %>
+    <% @jira.issues.each_with_index do |i, idx| %>
+        <%= link_to i.key, "?issue_debug=#{idx}" %>
+    <% end %>
+
+    <pre>
+      <%= @jira.issues[params[:issue_debug].to_i].status %>
+    </pre>
+
     <pre>
       <%= @jira.issues[params[:issue_debug].to_i].to_yaml %>
     </pre>

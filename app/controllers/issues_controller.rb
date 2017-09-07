@@ -7,7 +7,7 @@ class IssuesController < ApplicationController
   helper_method :matching_jira_issues
 
   def index
-    @issues = Issue.all.order(created_at: :desc)
+    @issues = Issue.for(jira_username).order(created_at: :desc)
   end
 
   def new
@@ -15,26 +15,30 @@ class IssuesController < ApplicationController
 
   def create
     log_text = nil
-    if url = params[:travis_log][:url].presence
-      open(url) do |f|
-        log_text = f.read
-      end
-    end
-    if params[:travis_log][:text].presence
-      log_text = params[:travis_log][:text]
-    end
-    if log_text.present?
-      tests, report = TravisLogParser.new(log_text).tests
-      if tests.size == report
-        flash[:notice] = "#{tests.size} new issues parsed."
-      else
-        flash[:alert] = "#{tests.size} new issues parsed, but #{report-tests.size} couldn't be parsed."
-      end
+    if build_number = params[:travis_log][:build_number].presence
+      redirect_to builds_path(id: build_number)
     else
-      flash[:alert] = "No log to parse!"
-    end
+      if url = params[:travis_log][:url].presence
+        open(url) do |f|
+          log_text = f.read
+        end
+      end
+      if params[:travis_log][:text].presence
+        log_text = params[:travis_log][:text]
+      end
+      if log_text.present?
+        tests, report = TravisLogParser.new(log_text, jira_username).tests
+        if tests.size == report
+          flash[:notice] = "#{tests.size} new issues found."
+        else
+          flash[:alert] = "#{tests.size} new issues found, but #{report-tests.size} couldn't be parsed."
+        end
+      else
+        flash[:alert] = "No log to parse!"
+      end
 
-    redirect_to issues_path
+      redirect_to issues_path
+    end
   end
 
   def edit
@@ -60,7 +64,7 @@ class IssuesController < ApplicationController
       when "destroy"
         # Destroying @issue below
       else
-        @jira.comment_on_issue(issue_params[:action], @issue)
+        @jira.reopen_and_comment_on_issue(issue_params[:action], @issue)
     end
 
     @issue.destroy
@@ -78,7 +82,8 @@ class IssuesController < ApplicationController
         @_jira_issues << {
           key: i.key,
           summary: i.summary,
-          status: i.resolution.try(:[], "name") || i.status.name,
+          status: i.status.name,
+          resolution: i.resolution.try(:[], "name"),
           assignee: i.assignee.try(:displayName)
         }
       end
@@ -92,10 +97,11 @@ class IssuesController < ApplicationController
     jira_issues.each do |i|
       distances[i] = [
         Vladlev.distance(issue.title, i[:summary], threshold),
-        Vladlev.distance("Build failure: #{issue.title}", i[:summary], threshold)
+        Vladlev.distance("Build failure: #{issue.title}", i[:summary], threshold),
+        Vladlev.distance("#{File.basename(issue.title, File.extname(issue.title))}", i[:summary], threshold)
       ].min
     end
-    distances.select { |i,d| d < threshold }.sort_by(&:last).reverse
+    distances.select { |i,d| d < threshold }.sort_by(&:last)
   end
 
   def issue_params

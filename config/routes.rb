@@ -13,5 +13,6 @@ Rails.application.routes.draw do
     end
   end
 
+  get "/builds/:id", to: "builds#analyze", as: "builds"
   root to: "issues#index"
 end

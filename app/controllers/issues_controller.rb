@@ -16,7 +16,8 @@ class IssuesController < ApplicationController
   def create
     log_text = nil
     if build_number = params[:travis_log][:build_number].presence
-      redirect_to builds_path(id: build_number)
+      matched_build_number = build_number.match(/(\d+)/)
+      redirect_to builds_path(id: matched_build_number[1])
     else
       if url = params[:travis_log][:url].presence
         open(url) do |f|

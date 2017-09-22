@@ -22,8 +22,7 @@ class JiraSessionsController < ApplicationController
   # DELETE /jira_sessions/1
   # DELETE /jira_sessions/1.json
   def destroy
-    session[:jira_username] = nil
-    session[:jira_password] = nil
+    reset_session
     redirect_to root_path, notice: "Logged out!"
   end
 

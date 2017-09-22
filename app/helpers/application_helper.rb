@@ -16,9 +16,9 @@ module ApplicationHelper
   end
 
   def help(help_tag)
-    if session[help_tag].blank?
+    if session[help_tag].to_i < 3
       yield
-      session[help_tag] = Time.now
+      session[help_tag] = session[help_tag].to_i + 1
     end
   end
 end

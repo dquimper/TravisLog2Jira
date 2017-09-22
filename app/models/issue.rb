@@ -32,7 +32,7 @@ class Issue < ApplicationRecord
 
   protected
   def init_vars
-    @test_regexp = Regexp.new("^(test/.*.rb):(\\d+):")
+    @test_regexp = Regexp.new("(@ |^)(test/.*.rb):(\\d+):")
     @lines = []
   end
 
@@ -41,7 +41,8 @@ class Issue < ApplicationRecord
     self.trace.split("\n").each do |line|
       if m = @test_regexp.match(line) #test/integration/applicants_old_checks_test.rb:307:
         # puts "\e[32m" + "m[1]=#{(m[1]).inspect}" + "\e[39m"
-        self.title ||= "#{m[1]}:#{"%04d" % [m[2]]}"
+        self.title ||= "#{m[2]}:#{"%04d" % [m[3]]}"
+        break
       end
     end
   end

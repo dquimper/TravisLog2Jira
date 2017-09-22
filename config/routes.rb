@@ -5,6 +5,9 @@ Rails.application.routes.draw do
     member do
       patch :execute
     end
+    collection do
+      post :clear_all
+    end
   end
 
   resources :jira_sessions, only: [:new, :create] do

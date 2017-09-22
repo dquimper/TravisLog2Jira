@@ -75,6 +75,12 @@ class IssuesController < ApplicationController
     end
   end
 
+  def clear_all
+    Issue.for(jira_username).destroy_all
+    flash[:notice] = "All issues removed!"
+    redirect_to root_path
+  end
+
   protected
   def jira_issues
     @_jira_issues = []

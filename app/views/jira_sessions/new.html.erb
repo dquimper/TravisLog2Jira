@@ -2,6 +2,14 @@
     New Jira Session
 <% end %>
 
-<div class="well">Input your JIRA credentials. They will not be recorded.</div>
+<div class="well">
+  <h3>Input your JIRA credentials.</h3>
+  <p>
+    They will be encrypted and recorded in your browser's session and used to identify you at <%= @jira_base_url %>.
+  </p>
+  <p>
+    The goal of this project is to update the <%= link_to("'#{@jira_epic_text}'", @jira_epic_url, target: "_blank") %> Epic in JIRA with recurring test failure.
+  </p>
+</div>
 
 <%= render 'form', jira_session: @jira_session %>

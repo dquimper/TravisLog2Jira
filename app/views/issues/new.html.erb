@@ -1,18 +1,20 @@
 <h1>Cut and paste Travis log</h1>
 
+<%= render "manual_upload" %>
+
 <%= form_with(scope: :travis_log, url: issues_path, method: :post, local: true) do |form| %>
     <div class="field form-group">
-      <%= form.label :url, "Build number" %>
+      <%= form.label :url, "Travis Build number:" %>
       <%= form.text_field :build_number, class: "form-control" %>
     </div>
 
     <div class="field form-group">
-      <%= form.label :url, "URL where the Travis is located." %>
+      <%= form.label :url, "URL of a raw Travis log:" %>
       <%= form.text_field :url, class: "form-control" %>
     </div>
 
     <div class="field form-group">
-      <%= form.label :text %>
+      <%= form.label :text, "Raw Travis log text:" %>
       <%= form.text_area :text,  rows: 15, class: "form-control" %>
     </div>
 

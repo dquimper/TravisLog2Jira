@@ -2,9 +2,17 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :verify_jira_session
+  before_action :load_jira_vars
   helper_method :jira_username
 
   protected
+  def load_jira_vars
+    @jira_base_url = ENV['JIRA_BASE_URL'].presence || "Undefined"
+
+    @jira_epic_text = ENV['JIRA_EPIC_TEXT'].presence || "Undefined"
+    @jira_epic_url = ENV['JIRA_EPIC_URL'].presence || "Undefined"
+  end
+
   def jira_username
     session[:jira_username]
   end

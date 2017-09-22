@@ -14,4 +14,11 @@ module ApplicationHelper
     output << "(%.1f%% match)" % (100*(jira_issue[:summary].size.to_f-levenshtein_distance)/jira_issue[:summary].size.to_f)
     output.join(" ").html_safe
   end
+
+  def help(help_tag)
+    if session[help_tag].blank?
+      yield
+      session[help_tag] = Time.now
+    end
+  end
 end

@@ -1,0 +1,22 @@
+<% help(:instruction) do %>
+    <div class="well">
+      <h3>Instructions</h3>
+      <p>
+        The goal of this project is to update the <%= link_to("'#{@jira_epic_text}'", @jira_epic_url, target: "_blank") %>
+        Epic in JIRA with recurring test failure. It parses Travis log, extract failing tests and allows you to take action on them.
+      </p>
+
+      <p>With this interface, you can:</p>
+      <ul>
+        <li><b>Open a new JIRA</b> ticket linked to the <%= "'#{@jira_epic_text}'" %> Epic for a newly recurring test.</li>
+        <li><b>Update an existing JIRA</b> ticket by adding a comment to it. This helps identify tests that
+          are failling more frequently</li>
+        <li><b>Reopen a closed JIRA</b> ticket. Save things as update, but also reopen the ticket if it was closed.</li>
+        <li><b>Remove it from this list</b>. For when a test is failing because of you. Does nothing!</li>
+        <li><b>Upload a Travis log</b> manually (top right)</li>
+      </ul>
+
+      <p>Please be aware that these JIRA will not fix themself. So when you have time, pick one and fix it.</p>
+      <p>The team will thank you!</p>
+    </div>
+<% end %>

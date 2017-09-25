@@ -105,7 +105,7 @@ class IssuesController < ApplicationController
       distances[i] = [
         Vladlev.distance(issue.title, i[:summary], threshold),
         Vladlev.distance("Build failure: #{issue.title}", i[:summary], threshold),
-        Vladlev.distance("#{File.basename(issue.title, File.extname(issue.title))}", i[:summary], threshold)
+        Vladlev.distance("#{File.basename(issue.title.to_s, File.extname(issue.title.to_s))}", i[:summary], threshold)
       ].min
     end
     distances.select { |i,d| d < threshold }.sort_by(&:last)
